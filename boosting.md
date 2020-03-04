@@ -1,6 +1,10 @@
 # 提升方法
 
+提升方法实际采用加法模型（基函数的线性组合）和向前分步算法。
+
 ## AdaBoost算法
+
+AdaBoost算法是损失函数为指数损失的向前分步算法，只用于二分类。
 
 **原理**：提高那些被前一轮弱分类器分类错误的样本权重，降低那些被正确分类的样本权重，训练本轮分类器。将所有弱分类器加权组合起来形成一个强分类器。
 
@@ -44,26 +48,30 @@
 
 ### 组合基分类器
 
-$$ f(x)=\sum^{M}_{m=1}\alpha_mG_m(x)$$
-所有$\alpha_m$的和并不为1。
-$$ G(x)=sign(f(x))$$
+<div align=center>
 
-## GBDT框架
+![function](http://latex.codecogs.com/gif.latex?f(x)=\sum^{M}_{m=1}\alpha_mG_m(x))  
+</div>
 
-**原理：** 每次在前一棵决策树的残差上构建下一棵决策树，将所有树的结果加起来。
+所有![function](http://latex.codecogs.com/gif.latex?\alpha_m) 的和并不为1。
+<div align=center>
 
-gbdt和xgboost的区别：
+![function](http://latex.codecogs.com/gif.latex?G(x)=sign(f(x)))  
+</div>
 
-* 正则化-对叶子节点个数做了惩罚，对叶子节点分数做惩罚。减少过拟合。
-* 二阶泰勒展开，更接近loss函数
+## GBDT算法
 
-lightgbm和xgboost的区别：
+**原理：** 每次在前一棵决策树的残差上构建下一棵决策树，将所有树线性组合。
 
-* lightgbm基于梯度的单边采样（GOSS）
-* xgboost采用预分类算法和直方图算法
-* 直方图算法：将特征值按照大小分成不同区间；对于一个特征，pre-sorted 需要对每一个不同特征值都计算一次分割增益，而 histogram 只需要计算 #bin (histogram 的横轴的数量) 次。不能找到很精确的分割点
-  
-catboost和xgboost的区别：
+### 向前分步算法
 
-* 对离散性特征处理做了改进，还有自动特征组合功能
-* xgboost需要对类别特征做独热编码
+确定初始提升树为
+$$f_0(x)=0 $$
+第m步的模型为
+$$ f_m(x) = f_{m-1}(x)+T(x;\theta_m)$$
+其中，$f_{m-1}(x)$为当前模型，通过经验风险极小化确定下一棵决策树的$\theta_m$。
+$$ \theta_m=\argmin\sum^{N}_{i=1}L(y_i, f_{m-1}(x_i)+T(x_i;\theta_m))$$
+树的参数求解过程包括了特征选择过程以及叶子节点的权重求解，也就是树的生成了。
+
+对于使用平方损失函数的回归问题，下一棵树的构建都是拟合当前的加法模型的残差。对于一般损失函数使用损失函数的负梯度，
+$-[\frac{\partial{L(y,f(x_i))}}{\partial{f(x_i)}}]$  作为回归问题提升树算法中的残差的近似值。
