@@ -1,27 +1,49 @@
 # GBDT的各种实现框架比较
 
 作为GBDT我们的模型目标都是训练 K 个基模型然后将他们线性组合，即
-$$ \hat{y}_i=\sum^K_{k=1}f_k(x_i)$$
+<div align=center>
+
+![function](http://latex.codecogs.com/gif.latex?\hat{y}_i=\sum^K_{k=1}f_k(x_i))  
+</div>
 
 ## XGBoost
 
-问题：损失函数加入了模型复杂度，是不是算作预剪，还是说有另外的剪枝操作？
+问题：
+
+* 损失函数加入了模型复杂度，是不是算作预剪枝，还是说有另外的剪枝操作？  
+* DART又是什么玩意？随机扔掉树避免过拟合？？
 
 基模型用的是CART。  
 假设我们已经训练好了前 t-1 个模型，对于第 t 个模型，我们需要最小化以下的目标函数：
+<div align=center>
 
-$$ L^{(t)}=\sum^N_{i=1}l(y_i, \hat{y}^{(t-1)}_i+f_t(x_i))+\Omega(f_t)$$
-$$其中，\Omega(f)=\tau T+\frac{1}{2} \lambda ||\omega||^2$$
+![function](http://latex.codecogs.com/gif.latex?L^{(t)}=\sum^N_{i=1}l(y_i,%20\hat{y}^{(t-1)}_i+f_t(x_i))+\Omega(f_t))  
+![function](http://latex.codecogs.com/gif.latex?\Omega(f)=\tau%20T+\frac{1}{2}%20\lambda%20||\omega||^2)  
+</div>
 
 即这个损失函数是经验损失+模型复杂度惩罚的形式。其中对于模型复杂度的惩罚，除了对叶子数量的惩罚外，还多了一项对叶子权重的L2惩罚项，目的是避免过拟合(原文: The additional regularization term helps to smooth the final learnt weights to avoid over-fitting. )。  
 
-对目标函数二阶泰勒展开：  
-令 $f_t(x_i)=0$,
-$$ l(y_i, \hat{y}^{(t-1)}_i+f_t(x_i))\approx l(y_i,\hat{y}^{(t-1)}_i)+g_if_t(x_i)+\frac{1}{2}h_if^2_t(x_i)$$
-$$ g_i=\partial_{\hat{y}^{(t-1)}}l(y_i,\hat{y}^{(t-1)}),$$
-$$ h_i=\partial^2_{\hat{y}^{(t-1)}}l(y_i,\hat{y}^{(t-1)})$$
+对目标函数二阶泰勒展开：
+
+令![function](http://latex.codecogs.com/gif.latex?f_t(x_i)=0)  
+
+<div align=center>
+
+![function](http://latex.codecogs.com/gif.latex?l(y_i,%20\hat{y}^{(t-1)}_i+f_t(x_i))\approx%20l(y_i,\hat{y}^{(t-1)}_i)+g_if_t(x_i)+\frac{1}{2}h_if^2_t(x_i))  
+
+![function](http://latex.codecogs.com/gif.latex?g_i=\partial_{\hat{y}^{(t-1)}}l(y_i,\hat{y}^{(t-1)}),)  
+
+![function](http://latex.codecogs.com/gif.latex?h_i=\partial^2_{\hat{y}^{(t-1)}}l(y_i,\hat{y}^{(t-1)}))  
+</div>
 
 复习一下泰勒展开公式：
+
+<div align=center>
+
+![function](http://latex.codecogs.com/gif.latex?f(x)=\sum^n_{i=1}\frac{f^{(i)}(x_0)}{i!}(x-x_0)^i)
+
+</div>
+
 $$ f(x)=\sum^n_{i=1}\frac{f^{(i)}(x_0)}{i!}(x-x_0)^i$$
 因为在第 t 个基模型，前面t-1个模型组合的预测结果已知，去掉目标函数的常数项，
 $$ \tilde{L}^{(t)}=\sum^N_{i=1}[g_if_t(x_i)+\frac{1}{2}h_if^2_t(x_i)]+\Omega(f_t)$$
