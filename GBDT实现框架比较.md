@@ -51,8 +51,6 @@
 
 </div>
 
-
-
 规定叶子 j 的样本集合为 ![function](http://latex.codecogs.com/gif.latex?I_j=\{i|q(x_i)=j\},%20q(x_i)) 将样本映射样本到所属的叶子节点。
 
 <div align=center>
@@ -67,7 +65,6 @@
 
 ![function](http://latex.codecogs.com/gif.latex?\omega^\star_j=-\frac{\sum_{i\in%20I_j}g_i}{\sum_{i\in%20I_j}h_i+\lambda})
 </div>
-
 
 然后代入计算得到的![function](http://latex.codecogs.com/gif.latex?\tilde{L}^{(t)})可以作为模型评估的分数:
 
@@ -100,7 +97,6 @@
 
 根据python包提供的参数有按树/按层次/按节点进行列采样三个可以选择的参数，参数效果是叠加的。
 
-
 ### 模型参数
 
 XGBoost有三种模型参数：
@@ -115,8 +111,8 @@ XGBoost有三种模型参数：
   * subsample(default=1), 在每一个基模型构建之前进行行采样，用采样的样本构建基模型。
   * sampling_method(default=uniform),还有一个是根据梯度采样，但因为计算量太大只在gpu下支持。
   * colsample_bytree, colsample_bylevel, colsample_bynode(default=1), 三个参数是累加效果。{'colsample_bytree':0.5, 'colsample_bylevel':0.5, 'colsample_bynode':0.5}在整体有64个特征的时候每一次split有8个特征可以选。
-  * $lambda$(default=1), 叶子权重的L2惩罚项
-  * $alpha$(default=0), 叶子权重的L1惩罚项
+  * lambda(default=1), 叶子权重的L2惩罚项
+  * alpha(default=0), 叶子权重的L1惩罚项
   * tree_method:支持exact(遍历全部取最优，贪婪算法)，approx(近似贪婪算法), hist(直方图算法)
   * scale_pos_weight(default=1)，缩放postive的样本的权重，如果使用的是auc做判断准则，那么这个参数对不平衡的样本集的训练就有帮助。
 * 任务相关的参数：
