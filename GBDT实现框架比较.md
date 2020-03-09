@@ -53,13 +53,9 @@
 
 规定叶子 j 的样本集合为$I_j=\{i|q(x_i)=j\}, q(x_i)$ 将样本映射样本到所属的叶子节点。
 
-<div align=center, lang="latex">
+<div align=center>
 
-![function](http://latex.codecogs.com/gif.latex?)
-$$\begin{aligned}
-    \tilde{L}^{(t)}&=\sum^N_{i=1}[g_if_t(x_i)+\frac{1}{2}h_if^2_t(x_i)]+\tau T+\frac{1}{2}\lambda\sum^T_{j=1}\omega^2_j\\&=\sum^T_{j=1}[(\sum_{i\in I_j}g_i)w_j+\frac{1}{2}(\sum_{i\in I_j}h_i+\lambda)w_j^2]+\tau T
-\end{aligned}
-$$
+![function](http://latex.codecogs.com/gif.latex?\begin{aligned}\tilde{L}^{(t)}&=\sum^N_{i=1}[g_if_t(x_i)+\frac{1}{2}h_if^2_t(x_i)]+\tau%20T+\frac{1}{2}\lambda\sum^T_{j=1}\omega^2_j\\&=\sum^T_{j=1}[(\sum_{i\in%20I_j}g_i)w_j+\frac{1}{2}(\sum_{i\in%20I_j}h_i+\lambda)w_j^2]+\tau%20T\end{aligned})
 
 </div>
 
