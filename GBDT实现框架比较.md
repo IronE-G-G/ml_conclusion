@@ -44,12 +44,26 @@
 
 </div>
 
-$$ f(x)=\sum^n_{i=1}\frac{f^{(i)}(x_0)}{i!}(x-x_0)^i$$
 因为在第 t 个基模型，前面t-1个模型组合的预测结果已知，去掉目标函数的常数项，
-$$ \tilde{L}^{(t)}=\sum^N_{i=1}[g_if_t(x_i)+\frac{1}{2}h_if^2_t(x_i)]+\Omega(f_t)$$
+<div align=center>
+
+![function](http://latex.codecogs.com/gif.latex?\tilde{L}^{(t)}=\sum^N_{i=1}[g_if_t(x_i)+\frac{1}{2}h_if^2_t(x_i)]+\Omega(f_t))
+
+</div>
+
 规定叶子 j 的样本集合为$I_j=\{i|q(x_i)=j\}, q(x_i)$ 将样本映射样本到所属的叶子节点。
 
-$$]\begin{aligned}
+<div align=center, lang="latex">
+
+![function](http://latex.codecogs.com/gif.latex?)
+$$\begin{aligned}
+    \tilde{L}^{(t)}&=\sum^N_{i=1}[g_if_t(x_i)+\frac{1}{2}h_if^2_t(x_i)]+\tau T+\frac{1}{2}\lambda\sum^T_{j=1}\omega^2_j\\&=\sum^T_{j=1}[(\sum_{i\in I_j}g_i)w_j+\frac{1}{2}(\sum_{i\in I_j}h_i+\lambda)w_j^2]+\tau T
+\end{aligned}
+$$
+
+</div>
+
+$$\begin{aligned}
     \tilde{L}^{(t)}&=\sum^N_{i=1}[g_if_t(x_i)+\frac{1}{2}h_if^2_t(x_i)]+\tau T+\frac{1}{2}\lambda\sum^T_{j=1}\omega^2_j\\&=\sum^T_{j=1}[(\sum_{i\in I_j}g_i)w_j+\frac{1}{2}(\sum_{i\in I_j}h_i+\lambda)w_j^2]+\tau T
 \end{aligned}
 $$
