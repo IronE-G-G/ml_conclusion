@@ -51,18 +51,17 @@
 
 </div>
 
-规定叶子 j 的样本集合为$I_j=\{i|q(x_i)=j\}, q(x_i)$ 将样本映射样本到所属的叶子节点。
+
+
+规定叶子 j 的样本集合为 ![function](http://latex.codecogs.com/gif.latex?I_j=\{i|q(x_i)=j\},%20q(x_i)) 将样本映射样本到所属的叶子节点。
 
 <div align=center>
 
-![function](http://latex.codecogs.com/gif.latex?\begin{aligned}\tilde{L}^{(t)}&=\sum^N_{i=1}[g_if_t(x_i)+\frac{1}{2}h_if^2_t(x_i)]+\tau%20T+\frac{1}{2}\lambda\sum^T_{j=1}\omega^2_j\\&=\sum^T_{j=1}[(\sum_{i\in%20I_j}g_i)w_j+\frac{1}{2}(\sum_{i\in%20I_j}h_i+\lambda)w_j^2]+\tau%20T\end{aligned})
+![function](http://latex.codecogs.com/gif.latex?\tilde{L}^{(t)}=\sum^N_{i=1}[g_if_t(x_i)+\frac{1}{2}h_if^2_t(x_i)]+\tau%20T+\frac{1}{2}\lambda\sum^T_{j=1}\omega^2_j)
 
+![function](http://latex.codecogs.com/gif.latex?=\sum^T_{j=1}[(\sum_{i\in%20I_j}g_i)w_j+\frac{1}{2}(\sum_{i\in%20I_j}h_i+\lambda)w_j^2]+\tau%20T)
 </div>
 
-$$\begin{aligned}
-    \tilde{L}^{(t)}&=\sum^N_{i=1}[g_if_t(x_i)+\frac{1}{2}h_if^2_t(x_i)]+\tau T+\frac{1}{2}\lambda\sum^T_{j=1}\omega^2_j\\&=\sum^T_{j=1}[(\sum_{i\in I_j}g_i)w_j+\frac{1}{2}(\sum_{i\in I_j}h_i+\lambda)w_j^2]+\tau T
-\end{aligned}
-$$
 对$\omega_j$求偏导，让偏导结果为0，得到叶子 j 权重的最优解
 $$ \omega^\star_j=-\frac{\sum_{i\in I_j}g_i}{\sum_{i\in I_j}h_i+\lambda}$$
 然后代入计算得到的$\tilde{L}^{(t)}$可以作为模型评估的分数:
