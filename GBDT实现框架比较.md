@@ -62,22 +62,42 @@
 ![function](http://latex.codecogs.com/gif.latex?=\sum^T_{j=1}[(\sum_{i\in%20I_j}g_i)w_j+\frac{1}{2}(\sum_{i\in%20I_j}h_i+\lambda)w_j^2]+\tau%20T)
 </div>
 
-对$\omega_j$求偏导，让偏导结果为0，得到叶子 j 权重的最优解
-$$ \omega^\star_j=-\frac{\sum_{i\in I_j}g_i}{\sum_{i\in I_j}h_i+\lambda}$$
-然后代入计算得到的$\tilde{L}^{(t)}$可以作为模型评估的分数:
-$$ \tilde{L}^{(t)}(q)=-\frac{1}{2}\sum^T_{i=1}\frac{(\sum_{i\in I_j}g_i)^2}{\sum_{i\in I_j}h_i+\lambda}+\tau T$$
 
-在实际应用中，loss的下降程度最大也直接用作特征选择的准则。假设分割点分割数据集为$I=I_L\bigcup I_R$，
-$$ \begin{aligned}
-L_{split}&=L_{before}-L_{left}-L_{right}\\
-&=-\frac{1}{2}[\frac{(\sum_{i\in I_L}g_i)^2}{\sum_{i\in I_L}h_i+\lambda}+\frac{(\sum_{i\in I_R}g_i)^2}{\sum_{i\in I_R}h_i+\lambda}-\frac{(\sum_{i\in I}g_i)^2}{\sum_{i\in I}h_i+\lambda}]+\tau
-\end{aligned}
-$$
+对 ![function](http://latex.codecogs.com/gif.latex?\omega_j) 求偏导，让偏导结果为0，得到叶子 j 权重的最优解
+<div align=center>
+
+![function](http://latex.codecogs.com/gif.latex?\omega^\star_j=-\frac{\sum_{i\in%20I_j}g_i}{\sum_{i\in%20I_j}h_i+\lambda})
+</div>
+
+
+然后代入计算得到的![function](http://latex.codecogs.com/gif.latex?\tilde{L}^{(t)})可以作为模型评估的分数:
+
+<div align=center>
+
+![function](http://latex.codecogs.com/gif.latex?\tilde{L}^{(t)}(q)=-\frac{1}{2}\sum^T_{i=1}\frac{(\sum_{i\in%20I_j}g_i)^2}{\sum_{i\in%20I_j}h_i+\lambda}+\tau%20T)
+</div>
+
+在实际应用中，loss的下降程度最大也直接用作特征选择的准则。假设分割点分割数据集为 ![function](http://latex.codecogs.com/gif.latex?I=I_L\bigcup%20I_R)，
+
+<div align=left>
+
+![function](http://latex.codecogs.com/gif.latex?L_{split}=L_{before}-L_{left}-L_{right})
+
+</div>
+
+<div align=right>
+
+![function](http://latex.codecogs.com/gif.latex?=-\frac{1}{2}[\frac{(\sum_{i\in%20I_L}g_i)^2}{\sum_{i\in%20I_L}h_i+\lambda}+\frac{(\sum_{i\in%20I_R}g_i)^2}{\sum_{i\in%20I_R}h_i+\lambda}-\frac{(\sum_{i\in%20I}g_i)^2}{\sum_{i\in%20I}h_i+\lambda}]+\tau)
+</div>
 
 ### Shrinkage（收缩技术）
 
-在每次学习到的模型的叶子权重乘一个学习率$\eta$，使得学习过程更加保守，能控制过拟合。
-$$ y^{(m)}=y^{(m-1)}+\eta f_m(x_i), \eta \in (0,1]$$
+在每次学习到的模型的叶子权重乘一个学习率![function](http://latex.codecogs.com/gif.latex?\eta)，使得学习过程更加保守，能控制过拟合。
+
+<div align=center>
+
+![function](http://latex.codecogs.com/gif.latex?y^{(m)}=y^{(m-1)}+\eta%20f_m(x_i),%20\eta%20\in%20\(0,1])
+</div>
 
 ### 列采样技术
 
