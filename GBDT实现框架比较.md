@@ -62,7 +62,6 @@
 ![function](http://latex.codecogs.com/gif.latex?=\sum^T_{j=1}[(\sum_{i\in%20I_j}g_i)w_j+\frac{1}{2}(\sum_{i\in%20I_j}h_i+\lambda)w_j^2]+\tau%20T)
 </div>
 
-
 对 ![function](http://latex.codecogs.com/gif.latex?\omega_j) 求偏导，让偏导结果为0，得到叶子 j 权重的最优解
 <div align=center>
 
@@ -79,13 +78,9 @@
 
 在实际应用中，loss的下降程度最大也直接用作特征选择的准则。假设分割点分割数据集为 ![function](http://latex.codecogs.com/gif.latex?I=I_L\bigcup%20I_R)，
 
-<div align=left>
+<div align=center>
 
 ![function](http://latex.codecogs.com/gif.latex?L_{split}=L_{before}-L_{left}-L_{right})
-
-</div>
-
-<div align=right>
 
 ![function](http://latex.codecogs.com/gif.latex?=-\frac{1}{2}[\frac{(\sum_{i\in%20I_L}g_i)^2}{\sum_{i\in%20I_L}h_i+\lambda}+\frac{(\sum_{i\in%20I_R}g_i)^2}{\sum_{i\in%20I_R}h_i+\lambda}-\frac{(\sum_{i\in%20I}g_i)^2}{\sum_{i\in%20I}h_i+\lambda}]+\tau)
 </div>
